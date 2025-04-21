@@ -10,12 +10,18 @@ CORS(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'gopimani0904@gmail.com'           # 🔁 Change this
-app.config['MAIL_PASSWORD'] = 'aapjqqlrbywzqpjw'              # 🔁 Change this
-app.config['MAIL_DEFAULT_SENDER'] = 'gopimani0904@gmail.com'     # 🔁 Change this
+app.config['MAIL_USERNAME'] = 'gopimani0904@gmail.com'           # 🔁 Change this if needed
+app.config['MAIL_PASSWORD'] = 'aapjqqlrbywzqpjw'                 # 🔁 Change this if needed
+app.config['MAIL_DEFAULT_SENDER'] = 'gopimani0904@gmail.com'     # 🔁 Change this if needed
 
 mail = Mail(app)
 
+# === Test Route ===
+@app.route('/', methods=['GET'])
+def home():
+    return "Flask backend is running!"
+
+# === Contact API ===
 @app.route('/contact', methods=['POST'])
 def contact():
     data = request.get_json()
@@ -33,7 +39,7 @@ def contact():
 
     # Send Email
     msg = Message(subject=f"New Contact Message from {name}",
-                  recipients=['gopimani0904@gmail.com'])  # 🔁 Change this
+                  recipients=['gopimani0904@gmail.com'])  # 🔁 Change this if needed
     msg.body = f"""
 You received a new message:
 
@@ -50,5 +56,5 @@ Message:
         print(e)
         return jsonify({'status': 'fail', 'message': 'Failed to send email.'}), 500
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     app.run(debug=True)
